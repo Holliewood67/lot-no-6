@@ -28,7 +28,7 @@ export default function NavBar(){
                                 <li className=""><Link href={"/#events"} className=" hover:text-gray-700">Events</Link></li>
                                 <li className=""><Link href={"/#featured"} className=" hover:text-gray-700">Featrued Artist</Link></li>
                                 <li className=""><Link href={"/#about"} className=" hover:text-gray-700">About</Link></li>
-                                <li className=""><a href="/#contact" className="hover:text-gray-700">Contact</a></li>
+                                <li className=""><Link href="/#contact" className="hover:text-gray-700">Contact</a></li>
                             </ul>
                         </nav>
                 </div>
@@ -40,7 +40,7 @@ export default function NavBar(){
                             <li className="p-4 border-b-2"><Link href={"/#events"} className="hover:text-gray-700">Events {">"}</Link></li>
                             <li className="p-4 border-b-2"><Link href={"/#featured"} className="hover:text-gray-700">Featured Artist {">"}</Link></li>
                             <li className="p-4 border-b-2"><Link href={"/#about"} className="hover:text-gray-700">About {">"}</Link></li>
-                            <li className="p-4"><a href="/#contact" className=" hover:text-gray-700">Contact {">"}</a></li>
+                            <li className="p-4"><Link href="/#contact" className=" hover:text-gray-700">Contact {">"}</a></li>
                         </ul>
                     </nav>
                 </div>
