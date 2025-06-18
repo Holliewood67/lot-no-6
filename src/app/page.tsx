@@ -1,4 +1,3 @@
-import NavBar from "./components/navbar";
 import Hero from "./components/hero";
 import Events from "./components/events";
 import FeaturedArtist from "./components/featured-artist";
