@@ -8,7 +8,6 @@ import Contact from "./components/contact";
 export default function Home() {
   return (
     <div className="grid justify-items-center bg-black text-white">
-      <NavBar />
       <Hero />
       <Events />
       <FeaturedArtist />
