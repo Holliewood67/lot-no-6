@@ -14,7 +14,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Lot No. 6",
+  title: "Lot No. 6 - Tulsa's #1 Art and Karaoke Bar",
   description: "Tulsaa's favorite art & karaoke bar",
 };
 
