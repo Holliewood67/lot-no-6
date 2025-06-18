@@ -7,7 +7,7 @@ export default function FeaturedArtist() {
   const { name, imageUrl, bio, links } = artist;
 
   return (
-    <section className="w-full border-b-2 border-white py-12 px-4 bg-black text-white">
+    <section id="featured" className="w-full border-b-2 border-white py-12 px-4 bg-black text-white">
       <div className="max-w-5xl mx-auto text-center">
         <h2 className="text-4xl font-bold mb-8">Featured Artist</h2>
 

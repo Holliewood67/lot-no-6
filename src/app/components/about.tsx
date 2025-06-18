@@ -3,11 +3,13 @@ import React from "react";
 
 export default function About() {
   return (
-    <section className="w-full border-b-2 border-white py-12 px-4 bg-black text-white">
+    <section id="about" className="w-full border-b-2 border-white py-6 px-4 bg-black text-white">
       <div className="max-w-6xl mx-auto">
         <div className="flex flex-col lg:flex-row gap-8">
+          <h3 className="text-2xl font-semibold text-center lg:hidden">Location</h3>
+
           {/* Google Maps Embed */}
-          <div className="w-full lg:w-2/3 h-80 lg:h-96">
+          <div className="w-full lg:w-2/3 h-80 lg:h-96 border-2 rounded-2xl">
                 <iframe
                 title="Lot No. 6 Location"
                 src={`https://www.google.com/maps/embed/v1/place?key=${process.env.NEXT_PUBLIC_MAPS_API_KEY}&q=Lot+No.+6,+Tulsa,+OK`}
@@ -22,7 +24,7 @@ export default function About() {
           </div>
 
           {/* Hours */}
-          <div className="w-full lg:w-1/3 text-center lg:text-left flex flex-col justify-center border-2 rounded-2xl p-4">
+          <div className="w-full lg:w-1/3 text-center flex flex-col justify-center border-2 rounded-2xl p-4">
             <h3 className="text-2xl font-semibold mb-4">Hours</h3>
             <ul className="text-gray-300 space-y-2">
               <li><strong>Monday:</strong> 4 PM – 2 AM</li>

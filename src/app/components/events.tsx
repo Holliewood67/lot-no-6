@@ -28,7 +28,7 @@ export default function Events() {
     }, [])
 
     return(
-        <section className="flex flex-col justify-center text-center items-center py-4 border-b-2">
+        <section id="events" className="flex flex-col justify-center text-center items-center py-4 border-b-2">
             <h1 className="text-4xl pb-4">EVENTS</h1>
             <div className=" grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 p-4">
                 {/* Iterates through array of events and displays event card for each event found */}
