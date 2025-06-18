@@ -1,5 +1,3 @@
-import { json } from "stream/consumers";
-
 export async function GET() {
     const calendarID = process.env.NEXT_PUBLIC_CALENDAR_ID;
     const apiKey = process.env.NEXT_PUBLIC_CALENDAR_API_KEY;
