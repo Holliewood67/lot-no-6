@@ -22,16 +22,16 @@ export default function About() {
           </div>
 
           {/* Hours */}
-          <div className="w-full lg:w-1/3 text-center lg:text-left flex flex-col justify-center">
+          <div className="w-full lg:w-1/3 text-center lg:text-left flex flex-col justify-center border-2 rounded-2xl p-4">
             <h3 className="text-2xl font-semibold mb-4">Hours</h3>
             <ul className="text-gray-300 space-y-2">
-              <li><strong>Monday:</strong> Closed</li>
-              <li><strong>Tuesday:</strong> 6 PM – 2 AM</li>
-              <li><strong>Wednesday:</strong> 6 PM – 2 AM</li>
-              <li><strong>Thursday:</strong> 6 PM – 2 AM</li>
-              <li><strong>Friday:</strong> 6 PM – 2 AM</li>
-              <li><strong>Saturday:</strong> 6 PM – 2 AM</li>
-              <li><strong>Sunday:</strong> Closed</li>
+              <li><strong>Monday:</strong> 4 PM – 2 AM</li>
+              <li><strong>Tuesday:</strong> 4 PM – 2 AM</li>
+              <li><strong>Wednesday:</strong> 4 PM – 2 AM</li>
+              <li><strong>Thursday:</strong> 4 PM – 2 AM</li>
+              <li><strong>Friday:</strong> 4 PM – 2 AM</li>
+              <li><strong>Saturday:</strong> 4 PM – 2 AM</li>
+              <li><strong>Sunday:</strong> 4 PM – 12 AM</li>
             </ul>
           </div>
         </div>
