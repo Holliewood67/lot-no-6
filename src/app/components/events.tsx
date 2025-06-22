@@ -31,7 +31,17 @@ export default function Events() {
   }, [])
 
   const handleShowMore = () => {
-    setVisibleCount((prev) => prev + EVENTS_PER_PAGE)
+    let added=0
+
+    const revealNext = () => {
+      if (added < 3 && visibleCount + added < events.length) {
+        setVisibleCount(prev => prev + 1);
+        added +=1;
+        setTimeout(revealNext, 200);
+      }
+    };
+
+    revealNext();
   }
 
   const visibleEvents = events.slice(0, visibleCount)
