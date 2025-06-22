@@ -48,7 +48,7 @@ export default function EventCard( { event } : {event: Event}) {
     : null;
 
     return(
-      <div className="bg-white border-2 border-white rounded-xl shadow-md overflow-hidden flex flex-col">
+      <div className="bg-white border-2 border-white rounded-xl shadow-md overflow-hidden flex flex-col h-full">
         {imageUrlCropped && (
           <Image
             src={imageUrlCropped}

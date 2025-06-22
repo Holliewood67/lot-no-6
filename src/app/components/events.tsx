@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react"
 import EventCard from "./event-card"
+import { AnimatePresence, motion } from "framer-motion"
 
 type Event = {
   id: string
@@ -30,7 +31,7 @@ export default function Events() {
   }, [])
 
   const handleShowMore = () => {
-    setVisibleCount((prev) => prev + EVENTS_PER_PAGE)
+    setVisibleCount((prev) => prev + 3)
   }
 
   const visibleEvents = events.slice(0, visibleCount)
@@ -41,9 +42,20 @@ export default function Events() {
       <h1 className="text-4xl pb-4">EVENTS</h1>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 p-4">
-        {visibleEvents.map((event) => (
-          <EventCard key={event.id} event={event} />
-        ))}
+        {/* Iterates through upcoming events and displays event cards based on retrieved info */}
+        <AnimatePresence initial={false} >
+          {visibleEvents.map((event) => (
+            <motion.div
+              key={event.id}
+              initial={{ opacity: 0, height: 0}}
+              animate={{opacity: 1, height: "auto"}}
+              exit={{opacity: 0, height: 0}}
+              transition={{ duration: 0.4, ease: "easeOut" }}
+              layout>
+              <EventCard key={event.id} event={event} />
+            </motion.div>
+          ))}
+        </AnimatePresence>
       </div>
 
       {hasMoreEvents && (
