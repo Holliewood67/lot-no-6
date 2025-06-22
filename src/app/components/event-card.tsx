@@ -1,7 +1,5 @@
 import Image from "next/image";
 import Link from "next/link";
-import { AnimatePresence, motion } from "framer-motion"
-
 
 type Event = {
     id: string,
