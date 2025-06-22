@@ -17,13 +17,15 @@ const googleDriveFix = (url: string) => {
   return match ? `https://drive.google.com/uc?export=view&id=${match[1]}` : url;
 };
 
-
-
 export default function EventCard( { event } : {event: Event}) {
 
-   const startDate = new Date(event.start.dateTime).toLocaleString('en-US', {
-      dateStyle: 'full',
-      timeStyle: 'short',
+  const summaryParts = event.summary.split("-")
+  const title = summaryParts[0];
+  const presenter = summaryParts.length > 1 ? summaryParts[1] : null;
+
+  const startDate = new Date(event.start.dateTime).toLocaleString('en-US', {
+    dateStyle: 'full',
+    timeStyle: 'short',
   });  
 
 
@@ -60,14 +62,13 @@ export default function EventCard( { event } : {event: Event}) {
         )}
 
         <div className="p-4 flex flex-col flex-grow">
-          <h2 className="text-xl font-bold text-black mb-1">
-            {event.summary}
+          <h2 className="text-lg md:text-xl font-bold text-black mb-0">
+            {title}
           </h2>
-          <p className="text-sm text-black mb-1">{startDate}</p>
-          {event.location && (
-            <p className="text-black mb-2">{event.location}</p>
+          {presenter && (
+            <p className="text-sm italic text-gray-600 mb-2">Presented by {presenter}</p>
           )}
-
+          <p className="text-sm text-black mb-1">{startDate}</p>
           {shortDescription && (
             <p className="text-black text-sm mb-2 flex-grow">
               {shortDescription}

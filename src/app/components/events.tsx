@@ -14,7 +14,7 @@ type Event = {
   attachment?: { fileUrl: string; title: string }[]
 }
 
-const EVENTS_PER_PAGE = 6
+const EVENTS_PER_PAGE = 3
 
 export default function Events() {
   const [events, setEvents] = useState<Event[]>([])
@@ -31,7 +31,7 @@ export default function Events() {
   }, [])
 
   const handleShowMore = () => {
-    setVisibleCount((prev) => prev + 3)
+    setVisibleCount((prev) => prev + EVENTS_PER_PAGE)
   }
 
   const visibleEvents = events.slice(0, visibleCount)
