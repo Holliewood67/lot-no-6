@@ -74,15 +74,15 @@ const imageUrlCropped =
         )}
 
         <div className={`${antonio.className} p-4 flex flex-col flex-grow`}>
-          <h2 className="text-lg md:text-xl font-bold text-black mb-0">
+          <h2 className="text-xl md:text-2xl font-bold text-black mb-0">
             {title}
           </h2>
           {presenter && (
-            <p className="text-sm italic text-gray-600 mb-2">Presented by {presenter}</p>
+            <p className="text-md italic text-gray-600 mb-2">Presented by {presenter}</p>
           )}
-          <p className="text-sm text-black mb-1">{startDate}</p>
+          <p className="text-md text-black mb-1">{startDate}</p>
           {shortDescription && (
-            <p className="text-black text-sm mb-2 flex-grow">
+            <p className="text-black text-lg mb-2 flex-grow">
               {shortDescription}
             </p>
           )}
