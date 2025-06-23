@@ -20,8 +20,10 @@ type Event = {
 }
 
 const googleDriveFix = (url: string) => {
-  const match = url.match(/id=([^&]+)/);
-  return match ? `https://drive.google.com/uc?export=view&id=${match[1]}` : url;
+  const match = url.match(/(?:\/d\/|id=)([a-zA-Z0-9_-]{10,})/);
+  return match
+    ? `https://drive.google.com/uc?export=view&id=${match[1]}`
+    : url;
 };
 
 export default function EventCard( { event } : {event: Event}) {

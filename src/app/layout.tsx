@@ -1,17 +1,8 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import NavBar from "./components/navbar";
-import { Antonio, Yeseva_One, Limelight } from 'next/font/google'
+import { Limelight } from 'next/font/google'
 
-const antonio = Antonio({
-  subsets: ['latin'],
-  weight: ['400', '700'], 
-})
-
-const yeseva = Yeseva_One({
-  subsets: ['latin'],
-  weight: ['400'], 
-})
  const limelight = Limelight({
   subsets: ['latin'],
   weight: ['400'], 
