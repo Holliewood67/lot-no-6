@@ -51,7 +51,7 @@ export default function Events() {
     <section id="events" className="flex flex-col justify-center text-center items-center py-4 border-b-2">
       <h1 className="text-4xl pb-4">EVENTS</h1>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 p-4">
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 p-4">
         {/* Iterates through upcoming events and displays event cards based on retrieved info */}
         <AnimatePresence initial={false} >
           {visibleEvents.map((event) => (

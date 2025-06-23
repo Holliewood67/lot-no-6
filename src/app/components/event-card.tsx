@@ -51,7 +51,7 @@ const imageUrlCropped =
           return googleDriveFix(event.attachments[0].fileUrl);
         }
       })()
-    : "/logo.png";
+    : "/lot-6.png";
     
     const imgAlt = 
     event.attachments && event.attachments.length > 0
