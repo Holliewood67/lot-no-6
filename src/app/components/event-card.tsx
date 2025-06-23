@@ -1,5 +1,12 @@
 import Image from "next/image";
 import Link from "next/link";
+import { Antonio } from "next/font/google";
+
+const antonio = Antonio({
+  subsets: ['latin'],
+  weight: ['400', '700'], 
+})
+
 
 type Event = {
     id: string,
@@ -64,7 +71,7 @@ const imageUrlCropped =
           />
         )}
 
-        <div className="p-4 flex flex-col flex-grow">
+        <div className={`${antonio.className} p-4 flex flex-col flex-grow`}>
           <h2 className="text-lg md:text-xl font-bold text-black mb-0">
             {title}
           </h2>

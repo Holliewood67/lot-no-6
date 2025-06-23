@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import NavBar from "./components/navbar";
-import { Antonio, Yeseva_One } from 'next/font/google'
+import { Antonio, Yeseva_One, Limelight } from 'next/font/google'
 
 const antonio = Antonio({
   subsets: ['latin'],
@@ -9,6 +9,10 @@ const antonio = Antonio({
 })
 
 const yeseva = Yeseva_One({
+  subsets: ['latin'],
+  weight: ['400'], 
+})
+ const limelight = Limelight({
   subsets: ['latin'],
   weight: ['400'], 
 })
@@ -26,7 +30,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={yeseva.className}>
+      <body className={limelight.className}>
       <NavBar />
         {children}
       </body>
