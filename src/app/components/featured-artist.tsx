@@ -27,14 +27,10 @@ export default function FeaturedArtist() {
           {/* Bio & Links Card */}
           <div className="w-full flex flex-col min-h-full justify-center md:h-full bg-black/60 border border-white/20 p-6 rounded-xl shadow-md">
             <div className="text-center md:text-left">
-              <h3 className="text-3xl font-semibold mb-3">{name}</h3>
-              <p className="text-gray-300 max-w-xl mb-4">{bio}</p>
-
+              <h3 className="text-4xl font-semibold mb-3">{name}</h3>
+              <p className="text-gray-300 max-w-xl mb-4 text-base md:text-lg lg:text-2xl">{bio}</p>
               {links && (
                 <>
-                  <h4 className="text-lg font-medium mb-2 text-gray-200">
-                    Connect with {name.split(" ")[0]}
-                  </h4>
                   <div className="flex flex-wrap gap-3 justify-center md:justify-start">
                     {Object.entries(links).map(([platform, url]) => (
                       <a

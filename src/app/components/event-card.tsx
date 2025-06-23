@@ -29,18 +29,21 @@ export default function EventCard( { event } : {event: Event}) {
   });  
 
 
-  const imageUrlCropped =
-    event.attachments && event.attachments.length > 0
+const imageUrlCropped =
+  event.attachments && event.attachments.length > 0
     ? (() => {
-        const index = event.attachments.findIndex(
+        const croppedIndex = event.attachments.findIndex(
           (att) => att.title && att.title.toLowerCase().includes("cropped")
         );
-        return index !== -1
-          ? googleDriveFix(event.attachments[index].fileUrl)
-          : null;
+        if (croppedIndex !== -1) {
+          return googleDriveFix(event.attachments[croppedIndex].fileUrl);
+        } else {
+          // Fallback to first image if no cropped image is found
+          return googleDriveFix(event.attachments[0].fileUrl);
+        }
       })()
     : "/logo.png";
-
+    
     const imgAlt = 
     event.attachments && event.attachments.length > 0
       ? event.attachments![0].title : "Musical Monsters";

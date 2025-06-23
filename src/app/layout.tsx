@@ -1,17 +1,18 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import NavBar from "./components/navbar";
+import { Antonio, Yeseva_One } from 'next/font/google'
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
+const antonio = Antonio({
+  subsets: ['latin'],
+  weight: ['400', '700'], 
+})
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
+const yeseva = Yeseva_One({
+  subsets: ['latin'],
+  weight: ['400'], 
+})
+
 
 export const metadata: Metadata = {
   title: "Lot No. 6 - Tulsa's #1 Art and Karaoke Bar",
@@ -25,9 +26,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
+      <body className={yeseva.className}>
       <NavBar />
         {children}
       </body>

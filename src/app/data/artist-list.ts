@@ -7,9 +7,9 @@ type Artist = {
 
 const artistList: Artist[] = [
   {
-    name: "Mr. Test",
+    name: "Sample Artist",
     imageUrl: "/artist-pics/test.png",
-    bio: "Mr. Test is a a Tulsa-based artist who doesn't actually exist, but is rather a placeholder just to show how a real bio would look here along with some kind of image. What do you think?",
+    bio: "This month at Lot No. 6, our walls feature the bold and expressive work of a local visual artist whose style blends emotion and texture with vibrant color. Their pieces bring fresh energy to the space — stop by and take a look.",
     links: {
       instagram: "https://instagram.com",
       spotify: "https://spotify.com",
