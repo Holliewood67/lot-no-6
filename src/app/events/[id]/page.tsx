@@ -1,6 +1,7 @@
 import { notFound } from "next/navigation";
 import Image from "next/image";
 import { Antonio } from "next/font/google";
+import { Metadata } from "next";
 
 const antonio = Antonio({
   subsets: ['latin'],
@@ -36,8 +37,10 @@ async function fetchEventById(id: string): Promise<Event | undefined> {
   return events.find((e) => e.id === id);
 }
 
-export async function generateMetadata({ params }: EventPageProps) {
-  const resolvedParams = await params; // await params here
+export async function generateMetadata(
+  { params }: EventPageProps,
+): Promise<Metadata> {
+  const resolvedParams = await params;
   const event = await fetchEventById(resolvedParams.id);
 
   if (!event) {
@@ -46,14 +49,36 @@ export async function generateMetadata({ params }: EventPageProps) {
       description: "No event found with this ID.",
     };
   }
+
+  const flyerAttachment = event.attachments?.find((att) =>
+    att.title?.toLowerCase().includes("full")
+  ) ?? event.attachments?.[0];
+
+  const imageUrl = flyerAttachment ? googleDriveFix(flyerAttachment.fileUrl) : null;
+
   return {
-    title: event.summary,
-    description: event.description ?? "",
+    title: `${event.summary} | Lot No. 6`,
+    description: event.description || "Live events and community at Lot No. 6.",
+    openGraph: {
+      title: `${event.summary} | Lot No. 6`,
+      description: event.description || "Live events and community at Lot No. 6.",
+      url: `https://www.lotno6.com/events/${event.id}`,
+      siteName: "Lot No. 6",
+      images: imageUrl
+        ? [
+            {
+              url: imageUrl,
+              width: 800,
+              height: 600,
+            },
+          ]
+        : [],
+    },
   };
 }
 
 export default async function EventPage({ params }: EventPageProps) {
-  const resolvedParams = await params; // await params here
+  const resolvedParams = await params;
   const event = await fetchEventById(resolvedParams.id);
 
   if (!event) return notFound();
