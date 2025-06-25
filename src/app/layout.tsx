@@ -1,4 +1,3 @@
-import type { Metadata } from "next";
 import "./globals.css";
 import NavBar from "./components/navbar";
 import { Limelight } from 'next/font/google'
