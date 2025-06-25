@@ -89,6 +89,7 @@ export default async function EventPage({ params }: EventPageProps) {
             {new Date(event.start.dateTime).toLocaleString("en-US", {
               dateStyle: "full",
               timeStyle: "short",
+              timeZone: "America/Chicago",
             })}
           </p>
 
