@@ -1,9 +1,9 @@
 import Image from "next/image";
 import Link from "next/link";
 import { Antonio } from "next/font/google";
-import { PortableText, type SanityDocument } from "next-sanity";
 import { client } from "@/sanity/client";
 import imageUrlBuilder from '@sanity/image-url';
+import { SanityEvent } from "@/types/sanity";
 
 const builder = imageUrlBuilder(client);
 
@@ -12,7 +12,7 @@ function urlFor(source: any) {
 }
 
 interface EventProps {
-  event: SanityDocument;
+  event: SanityEvent;
 }
 
 function getTruncatedDescription(portableText: any, maxLength: number = 50): string {
@@ -58,7 +58,7 @@ export default function EventCard({ event }: EventProps) {
   return (
     <div className="bg-white border-2 border-white rounded-xl shadow-md overflow-hidden flex flex-col xl:flex-row h-full">
       {/* Only render Image if valid URL */}
-      <div className="xl:w-80 xl:flex-shrink-0">
+      <div className="xl:w-100 xl:flex-shrink-0">
         {imageUrl ? (
           <Image
           src={imageUrl}
@@ -98,7 +98,7 @@ export default function EventCard({ event }: EventProps) {
           {getTruncatedDescription(event.description, 150)}
         </div>
         <div className="text-black text-lg mb-2 flex-grow hidden xl:block">
-          {getTruncatedDescription(event.description, 400)}
+          {getTruncatedDescription(event.description, 300)}
         </div>
         <Link
           href={`/events/${event._id}`}

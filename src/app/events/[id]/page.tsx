@@ -1,40 +1,39 @@
 import { notFound } from "next/navigation";
 import Image from "next/image";
+import Link from "next/link";
 import { Antonio } from "next/font/google";
 import { Metadata } from "next";
+import { PortableText } from "next-sanity";
+import { client } from "@/sanity/client";
+import imageUrlBuilder from '@sanity/image-url';
+import { SanityEvent } from "@/types/sanity";
+
+const builder = imageUrlBuilder(client);
+
+function urlFor(source: any) {
+  return builder.image(source);
+}
 
 const antonio = Antonio({
   subsets: ['latin'],
   weight: ['400', '700'], 
 });
 
-type Event = {
-  id: string;
-  summary: string;
-  description?: string;
-  start: { dateTime: string };
-  htmlLink: string;
-  attachments?: { fileUrl: string; title: string }[];
-};
-
 interface EventPageProps {
   params: Promise<{ id: string }>; 
 }
 
-// Fix Google Drive URLs for direct image embedding
-const googleDriveFix = (url: string) => {
-  const match = url.match(/(?:\/d\/|id=)([a-zA-Z0-9_-]{10,})/);
-  return match
-    ? `https://drive.google.com/uc?export=view&id=${match[1]}`
-    : url;
-};
+const EVENT_QUERY = `*[_type == "event" && _id == $id][0]{
+  _id,
+  title,
+  start,
+  presenter,
+  image,
+  description
+}`;
 
-async function fetchEventById(id: string): Promise<Event | undefined> {
-  const res = await fetch(`${process.env.NEXT_PUBLIC_SITE_URL}/api/events`, {
-    next: { revalidate: 60 },
-  });
-  const events: Event[] = await res.json();
-  return events.find((e) => e.id === id);
+async function fetchEventById(id: string): Promise<SanityEvent | null> {
+  return await client.fetch(EVENT_QUERY, { id }, { next: { revalidate: 60 } });
 }
 
 export async function generateMetadata(
@@ -50,19 +49,17 @@ export async function generateMetadata(
     };
   }
 
-  const flyerAttachment = event.attachments?.find((att) =>
-    att.title?.toLowerCase().includes("full")
-  ) ?? event.attachments?.[0];
-
-  const imageUrl = flyerAttachment ? googleDriveFix(flyerAttachment.fileUrl) : null;
+  const imageUrl = event.image 
+    ? urlFor(event.image).width(800).height(600).url() 
+    : null;
 
   return {
-    title: `${event.summary} | Lot No. 6`,
-    description: event.description || "Live events and community at Lot No. 6.",
+    title: `${event.title} | Lot No. 6`,
+    description: event.description?.[0]?.children?.[0]?.text || "Live events and community at Lot No. 6.",
     openGraph: {
-      title: `${event.summary} | Lot No. 6`,
-      description: event.description || "Live events and community at Lot No. 6.",
-      url: `https://www.lotno6.com/events/${event.id}`,
+      title: `${event.title} | Lot No. 6`,
+      description: event.description?.[0]?.children?.[0]?.text || "Live events and community at Lot No. 6.",
+      url: `https://www.lotno6.com/events/${event._id}`,
       siteName: "Lot No. 6",
       images: imageUrl
         ? [
@@ -83,21 +80,19 @@ export default async function EventPage({ params }: EventPageProps) {
 
   if (!event) return notFound();
 
-  const flyerAttachment = event.attachments?.find((att) =>
-    att.title?.toLowerCase().includes("full")
-  ) ?? event.attachments?.[0];
-
-  const imageUrl = flyerAttachment ? googleDriveFix(flyerAttachment.fileUrl) : "/lot-6.png";
+  const imageUrl = event.image 
+    ? urlFor(event.image).width(800).height(800).url() 
+    : "/lot-6.png";
 
   return (
     <section className="w-full py-12 px-4 text-white max-w-6xl mx-auto">
       <div className="flex flex-col md:flex-row gap-8 items-start">
-        {/* Flyer Image */}
+        {/* Event Image */}
         <div className="w-full md:w-1/2">
           <div className="w-full rounded-xl overflow-hidden shadow-lg border-2 border-white">
             <Image
               src={imageUrl}
-              alt={`${event.summary} flyer`}
+              alt={`${event.title} image`}
               width={800}
               height={800}
               className="w-full h-auto object-contain"
@@ -108,10 +103,16 @@ export default async function EventPage({ params }: EventPageProps) {
 
         {/* Event Details */}
         <div className="md:w-1/2 flex flex-col justify-center">
-          <h1 className="text-4xl font-bold mb-4">{event.summary}</h1>
+          <h1 className="text-4xl font-bold mb-4">{event.title}</h1>
 
-          <p className={`${antonio.className} text-gray-300 mb-2`}>
-            {new Date(event.start.dateTime).toLocaleString("en-US", {
+          {event.presenter && (
+            <p className={`${antonio.className} text-gray-300 mb-2 italic`}>
+              Presented by {event.presenter}
+            </p>
+          )}
+
+          <p className={`${antonio.className} text-gray-300 mb-4`}>
+            {new Date(event.start).toLocaleString("en-US", {
               dateStyle: "full",
               timeStyle: "short",
               timeZone: "America/Chicago",
@@ -119,19 +120,17 @@ export default async function EventPage({ params }: EventPageProps) {
           </p>
 
           {event.description && (
-            <p className={`${antonio.className} text-gray-200 mb-4 whitespace-pre-line`}>
-              {event.description}
-            </p>
+            <div className={`${antonio.className} text-gray-200 mb-6`}>
+              <PortableText value={event.description} />
+            </div>
           )}
 
-          <a
-            href={event.htmlLink}
-            target="_blank"
-            rel="noopener noreferrer"
-            className={`${antonio.className} inline-block w-fit py-2 px-4 bg-white text-black rounded hover:bg-gray-300 transition`}
+          <Link
+            href="/events"
+            className={`${antonio.className} inline-block w-fit py-2 px-6 bg-white text-black rounded-xl hover:bg-gray-300 transition`}
           >
-            View on Google Calendar
-          </a>
+            ← Back to Events
+          </Link>
         </div>
       </div>
     </section>

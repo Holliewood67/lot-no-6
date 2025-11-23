@@ -1,8 +1,8 @@
 import Image from "next/image";
-import { type SanityDocument } from "next-sanity";
 import { client } from "@/sanity/client";
 import imageUrlBuilder from '@sanity/image-url';
 import { PortableText } from "next-sanity";
+import { SanityArtist } from "@/types/sanity";
 
 const builder = imageUrlBuilder(client);
 
@@ -11,7 +11,7 @@ function urlFor(source: any) {
 }
 
 interface FeaturedArtistProps {
-  artists: SanityDocument[];
+  artists: SanityArtist[];
 }
 
 export default function FeaturedArtist({ artists }: FeaturedArtistProps) {
@@ -46,13 +46,14 @@ export default function FeaturedArtist({ artists }: FeaturedArtistProps) {
                 <div className="text-center md:text-left">
                   <h3 className="text-4xl font-semibold mb-3">{artist.name}</h3>
                   <div className="text-gray-300 mb-4 text-base md:text-lg">
-                    <PortableText value={artist.bio} />
+                    {artist.bio && <PortableText value={artist.bio} />}
                   </div>
-                  {artist.links && (
+
+                  {/* {artist.links && (
                     <div className="flex flex-wrap gap-3 justify-center md:justify-start">
-                      {/* Add your links mapping here */}
                     </div>
-                  )}
+                  )} */}
+                  
                 </div>
               </div>
             </div>

@@ -1,21 +1,12 @@
 "use client"
 
+import { SanityEvent } from "@/types/sanity";
 import EventCard from "./event-card"
 import { AnimatePresence, motion } from "framer-motion"
-
-import { type SanityDocument } from "next-sanity";
-import { client } from "@/sanity/client";
-import imageUrlBuilder from '@sanity/image-url';
 import Link from "next/link";
 
-const builder = imageUrlBuilder(client);
-
-function urlFor(source: any) {
-  return builder.image(source);
-}
-
 interface EventProps {
-  events: SanityDocument[];
+  events: SanityEvent[];
 }
 
 export default function Events({ events }: EventProps) {
