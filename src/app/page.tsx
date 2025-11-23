@@ -20,21 +20,20 @@ const ARTISTS_QUERY = `*[_type == "artist"]{
   endDate
 }|order(name desc)`;
 
-const EVENTS_QUERY = `*[_type == "event"]{
+const EVENTS_QUERY = `*[_type == "event" && dateTime(start) >= dateTime(now())]{
   _id,
   title,
   start,
   presenter,
   image,
   description
-}|order(start desc)`;
+}|order(start asc)`;
 
 const options = { next: { revalidate: 30} };
 
 export default async function Home() {
-  const artists = await client.fetch<SanityArtist[]>(ARTISTS_QUERY, {}, options);  // Fixed: use SanityArtist[] instead of SanityDocument[]
-  const events = await client.fetch<SanityEvent[]>(EVENTS_QUERY, {}, options);  // Fixed: use SanityEvent[] instead of SanityDocument[]
-    
+  const artists = await client.fetch<SanityArtist[]>(ARTISTS_QUERY, {}, options); 
+  const events = await client.fetch<SanityEvent[]>(EVENTS_QUERY, {}, options);  
   return (
     <div className="grid justify-items-center bg-black text-white">
       <Hero />

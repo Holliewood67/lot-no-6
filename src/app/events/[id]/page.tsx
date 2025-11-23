@@ -60,7 +60,7 @@ export async function generateMetadata(
     openGraph: {
       title: `${event.title} | Lot No. 6`,
       description: event.description?.[0]?.children?.[0]?.text || "Live events and community at Lot No. 6.",
-      url: `https://www.lotno6.com/events/${event._id}`,
+      url: `https://www.lot6tulsa.com/events/${event._id}`,
       siteName: "Lot No. 6",
       images: imageUrl
         ? [

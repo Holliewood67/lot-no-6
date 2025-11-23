@@ -10,10 +10,10 @@ interface EventProps {
 }
 
 export default function Events({ events }: EventProps) {
+
   return (
     <section id="events" className="flex flex-col justify-center text-center items-center py-4 border-b-2">
-      <h1 className="text-4xl pb-4">EVENTS</h1>
-
+      <h1 className="text-4xl pb-4">UPCOMING EVENTS</h1>
       <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-1 gap-6 p-4">
         {/* Iterates through upcoming events and displays event cards based on retrieved info */}
         <AnimatePresence initial={false} >
