@@ -3,11 +3,13 @@ import Link from "next/link";
 import { Antonio } from "next/font/google";
 import { client } from "@/sanity/client";
 import imageUrlBuilder from '@sanity/image-url';
+import { SanityImageSource } from '@sanity/image-url/lib/types/types';
 import { SanityEvent } from "@/types/sanity";
+import { PortableTextBlock } from '@portabletext/types';
 
 const builder = imageUrlBuilder(client);
 
-function urlFor(source: any) {
+function urlFor(source: SanityImageSource) {  // Fixed: replaced 'any' with SanityImageSource
   return builder.image(source);
 }
 
@@ -15,14 +17,14 @@ interface EventProps {
   event: SanityEvent;
 }
 
-function getTruncatedDescription(portableText: any, maxLength: number = 50): string {
+function getTruncatedDescription(portableText: PortableTextBlock[] | undefined, maxLength: number = 50): string {  // Fixed: replaced 'any' with proper type
   if (!portableText || !Array.isArray(portableText)) return '';
   
   let text = '';
   for (const block of portableText) {
-    if (block._type === 'block' && block.children) {
+    if (block._type === 'block' && 'children' in block) {
       for (const child of block.children) {
-        if (child.text) {
+        if ('text' in child && child.text) {
           text += child.text + ' ';
         }
       }
@@ -37,7 +39,6 @@ function getTruncatedDescription(portableText: any, maxLength: number = 50): str
   
   return text;
 }
-
 
 const antonio = Antonio({
   subsets: ['latin'],
@@ -61,19 +62,19 @@ export default function EventCard({ event }: EventProps) {
       <div className="xl:w-100 xl:flex-shrink-0">
         {imageUrl ? (
           <Image
-          src={imageUrl}
-          alt={event.title || "Event image"}
-          width={600}
-          height={600}
-          className="w-full max-h-64 object-cover bg-black"
+            src={imageUrl}
+            alt={event.title || "Event image"}
+            width={600}
+            height={600}
+            className="w-full max-h-64 object-cover bg-black"
           />
         ) : (
           <Image
-          src="/lot-6.jpg"
-          alt={event.title || "Event image"}
-          width={600}
-          height={600}
-          className="w-full max-h-64 object-cover bg-black"
+            src="/lot-6.jpg"
+            alt={event.title || "Event image"}
+            width={600}
+            height={600}
+            className="w-full max-h-64 object-cover bg-black"
           />
         )}
       </div>

@@ -3,17 +3,11 @@ import Events from "./components/events";
 import FeaturedArtist from "./components/featured-artist";
 import About from "./components/about";
 import Contact from "./components/contact";
-import { type SanityDocument } from "next-sanity";
 import { client } from "@/sanity/client";
-import imageUrlBuilder from '@sanity/image-url';
+import { SanityArtist, SanityEvent } from "@/types/sanity";
 
-const builder = imageUrlBuilder(client);
+const ARTISTS_QUERY = `*[_type == "artist"]|order(name desc)`;  // Fixed typo: ARISTS -> ARTISTS
 
-function urlFor(source: any) {
-  return builder.image(source);
-}
-
-const ARISTS_QUERY = `*[_type == "artist"]|order(name, desc)`;
 const EVENTS_QUERY = `*[_type == "event"]{
   _id,
   title,
@@ -22,14 +16,13 @@ const EVENTS_QUERY = `*[_type == "event"]{
   image,
   description
 }|order(start desc)`;
+
 const options = { next: { revalidate: 30} };
 
-
 export default async function Home() {
-  const artists = await client.fetch<SanityDocument[]>(ARISTS_QUERY, {}, options);
-  const events = await client.fetch<SanityDocument[]>(EVENTS_QUERY, {}, options);
-
-    console.log('Events from Sanity:', JSON.stringify(events, null, 2));
+  const artists = await client.fetch<SanityArtist[]>(ARTISTS_QUERY, {}, options);  // Fixed: use SanityArtist[] instead of SanityDocument[]
+  const events = await client.fetch<SanityEvent[]>(EVENTS_QUERY, {}, options);  // Fixed: use SanityEvent[] instead of SanityDocument[]
+    
   return (
     <div className="grid justify-items-center bg-black text-white">
       <Hero />

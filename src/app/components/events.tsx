@@ -10,7 +10,6 @@ interface EventProps {
 }
 
 export default function Events({ events }: EventProps) {
-  console.log('Event IDs:', events.map(e => e._id));
   return (
     <section id="events" className="flex flex-col justify-center text-center items-center py-4 border-b-2">
       <h1 className="text-4xl pb-4">EVENTS</h1>

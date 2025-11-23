@@ -6,11 +6,12 @@ import { Metadata } from "next";
 import { PortableText } from "next-sanity";
 import { client } from "@/sanity/client";
 import imageUrlBuilder from '@sanity/image-url';
+import { SanityImageSource } from '@sanity/image-url/lib/types/types';
 import { SanityEvent } from "@/types/sanity";
 
 const builder = imageUrlBuilder(client);
 
-function urlFor(source: any) {
+function urlFor(source: SanityImageSource) {  // Fixed: replaced 'any' with SanityImageSource
   return builder.image(source);
 }
 
@@ -104,13 +105,11 @@ export default async function EventPage({ params }: EventPageProps) {
         {/* Event Details */}
         <div className="md:w-1/2 flex flex-col justify-center">
           <h1 className="text-4xl font-bold mb-4">{event.title}</h1>
-
           {event.presenter && (
             <p className={`${antonio.className} text-gray-300 mb-2 italic`}>
               Presented by {event.presenter}
             </p>
           )}
-
           <p className={`${antonio.className} text-gray-300 mb-4`}>
             {new Date(event.start).toLocaleString("en-US", {
               dateStyle: "full",
@@ -118,13 +117,11 @@ export default async function EventPage({ params }: EventPageProps) {
               timeZone: "America/Chicago",
             })}
           </p>
-
           {event.description && (
             <div className={`${antonio.className} text-gray-200 mb-6`}>
               <PortableText value={event.description} />
             </div>
           )}
-
           <Link
             href="/events"
             className={`${antonio.className} inline-block w-fit py-2 px-6 bg-white text-black rounded-xl hover:bg-gray-300 transition`}

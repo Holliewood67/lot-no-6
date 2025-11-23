@@ -1,12 +1,13 @@
 import Image from "next/image";
 import { client } from "@/sanity/client";
 import imageUrlBuilder from '@sanity/image-url';
+import { SanityImageSource } from '@sanity/image-url/lib/types/types';
 import { PortableText } from "next-sanity";
 import { SanityArtist } from "@/types/sanity";
 
 const builder = imageUrlBuilder(client);
 
-function urlFor(source: any) {
+function urlFor(source: SanityImageSource) {
   return builder.image(source);
 }
 
@@ -33,13 +34,19 @@ export default function FeaturedArtist({ artists }: FeaturedArtistProps) {
             <div className="flex flex-col md:flex-row items-center md:items-start gap-8">
               {/* Artist Image */}
               <div className="flex-shrink-0">
-                <Image
-                  src={urlFor(artist.image).width(400).height(400).url()}
-                  alt={`${artist.name}'s photo`}
-                  width={400}
-                  height={400}
-                  className="rounded-xl object-cover shadow-lg"
-                />
+                {artist.image ? (
+                  <Image
+                    src={urlFor(artist.image).width(400).height(400).url()}
+                    alt={`${artist.name}'s photo`}
+                    width={400}
+                    height={400}
+                    className="rounded-xl object-cover shadow-lg"
+                  />
+                ) : (
+                  <div className="w-[400px] h-[400px] bg-gray-800 rounded-xl flex items-center justify-center">
+                    <span className="text-gray-500">No image available</span>
+                  </div>
+                )}
               </div>
               {/* Bio & Links Card */}
               <div className="flex-1 flex flex-col justify-center bg-black/60 border border-white/20 p-6 rounded-xl shadow-md">
@@ -48,7 +55,6 @@ export default function FeaturedArtist({ artists }: FeaturedArtistProps) {
                   <div className="text-gray-300 mb-4 text-base md:text-lg">
                     {artist.bio && <PortableText value={artist.bio} />}
                   </div>
-
                   {/* {artist.links && (
                     <div className="flex flex-wrap gap-3 justify-center md:justify-start">
                     </div>
