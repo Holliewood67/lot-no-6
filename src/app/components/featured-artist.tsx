@@ -37,9 +37,15 @@ export default function FeaturedArtist({ artists }: FeaturedArtistProps) {
       {activeArtists.map((artist) => {
         // Generate image URL with error handling
         let imageUrl = "/lot-6.png"; // Default fallback
+          console.log('Artist data:', {
+            name: artist.name,
+            hasImage: !!artist.image,
+            imageData: artist.image
+          });
         if (artist.image) {
           try {
             imageUrl = urlFor(artist.image).width(400).height(400).url();
+            console.log('Generated image URL:', imageUrl);
           } catch (error) {
             console.error('Error generating artist image URL:', error);
           }

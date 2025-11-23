@@ -6,7 +6,19 @@ import Contact from "./components/contact";
 import { client } from "@/sanity/client";
 import { SanityArtist, SanityEvent } from "@/types/sanity";
 
-const ARTISTS_QUERY = `*[_type == "artist"]|order(name desc)`;  // Fixed typo: ARISTS -> ARTISTS
+const ARTISTS_QUERY = `*[_type == "artist"]{
+  _id,
+  name,
+  bio,
+  image{
+    asset->{
+      _id,
+      url
+    }
+  },
+  startDate,
+  endDate
+}|order(name desc)`;
 
 const EVENTS_QUERY = `*[_type == "event"]{
   _id,
