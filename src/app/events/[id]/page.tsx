@@ -110,7 +110,7 @@ export default async function EventPage({ params }: EventPageProps) {
               Presented by {event.presenter}
             </p>
           )}
-          <p className={`${antonio.className} text-gray-300 mb-4`}>
+          <p className={`${antonio.className} text-gray-300 mb-4`} suppressHydrationWarning>
             {new Date(event.start).toLocaleString("en-US", {
               dateStyle: "full",
               timeStyle: "short",

@@ -26,7 +26,7 @@ export default async function Home() {
   return (
     <div className="grid justify-items-center bg-black text-white">
       <Hero />
-      <Events events={events.slice(0, 3)} />
+      <Events events={events.slice(0, 4)} />
       <FeaturedArtist artists={artists}/>
       <About />
       <Contact />

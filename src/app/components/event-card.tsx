@@ -87,14 +87,14 @@ export default function EventCard({ event }: EventProps) {
             Presented by {event.presenter}
           </p>
         )}
-        <p className="text-md text-black mb-1">
-          {new Date(event.start).toLocaleDateString('en-US', {
-            weekday: 'long',
-            year: 'numeric',
-            month: 'long',
-            day: 'numeric'
-          })}
-        </p>
+      <p className="text-md text-black mb-1" suppressHydrationWarning>
+      {new Date(event.start).toLocaleDateString('en-US', {
+        weekday: 'long',
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric'
+      })}
+    </p>
         <div className="text-black text-lg mb-2 flex-grow xl:hidden">
           {getTruncatedDescription(event.description, 150)}
         </div>
