@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { Antonio } from "next/font/google";
-import { type SanityDocument } from "next-sanity";
+import { PortableText, type SanityDocument } from "next-sanity";
 import { client } from "@/sanity/client";
 import imageUrlBuilder from '@sanity/image-url';
 
@@ -14,6 +14,30 @@ function urlFor(source: any) {
 interface EventProps {
   event: SanityDocument;
 }
+
+function getTruncatedDescription(portableText: any, maxLength: number = 50): string {
+  if (!portableText || !Array.isArray(portableText)) return '';
+  
+  let text = '';
+  for (const block of portableText) {
+    if (block._type === 'block' && block.children) {
+      for (const child of block.children) {
+        if (child.text) {
+          text += child.text + ' ';
+        }
+      }
+    }
+  }
+  
+  text = text.trim();
+  
+  if (text.length > maxLength) {
+    return text.substring(0, maxLength) + '...';
+  }
+  
+  return text;
+}
+
 
 const antonio = Antonio({
   subsets: ['latin'],
@@ -32,26 +56,27 @@ export default function EventCard({ event }: EventProps) {
   }
   
   return (
-    <div className="bg-white border-2 border-white rounded-xl shadow-md overflow-hidden flex flex-col h-full">
+    <div className="bg-white border-2 border-white rounded-xl shadow-md overflow-hidden flex flex-col xl:flex-row h-full">
       {/* Only render Image if valid URL */}
-      {imageUrl ? (
-        <Image
+      <div className="xl:w-80 xl:flex-shrink-0">
+        {imageUrl ? (
+          <Image
           src={imageUrl}
           alt={event.title || "Event image"}
           width={600}
           height={600}
           className="w-full max-h-64 object-cover bg-black"
-        />
-      ) : (
-        <Image
+          />
+        ) : (
+          <Image
           src="/lot-6.jpg"
           alt={event.title || "Event image"}
           width={600}
           height={600}
           className="w-full max-h-64 object-cover bg-black"
-        />
-      )}
-      
+          />
+        )}
+      </div>
       <div className={`${antonio.className} p-4 flex flex-col flex-grow`}>
         <h2 className="text-xl md:text-2xl font-bold text-black mb-0">
           {event.title}
@@ -69,9 +94,12 @@ export default function EventCard({ event }: EventProps) {
             day: 'numeric'
           })}
         </p>
-        <p className="text-black text-lg mb-2 flex-grow">
-          {/* You can add description here later */}
-        </p>
+        <div className="text-black text-lg mb-2 flex-grow xl:hidden">
+          {getTruncatedDescription(event.description, 150)}
+        </div>
+        <div className="text-black text-lg mb-2 flex-grow hidden xl:block">
+          {getTruncatedDescription(event.description, 400)}
+        </div>
         <Link
           href={`/events/${event._id}`}
           className="mt-auto text-white text-sm font-semibold hover:underline rounded-xl bg-black mx-auto py-1 px-4"
